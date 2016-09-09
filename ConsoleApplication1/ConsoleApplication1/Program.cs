@@ -75,6 +75,8 @@ namespace ConsoleApplication1
 
         static void Main(string[] args)
         {
+            /*
+                // lesson 1
             var custPurQuery =
                 from c in customers
                 from p in c.Purchases
@@ -85,6 +87,96 @@ namespace ConsoleApplication1
                 Console.WriteLine("{0}, {1}", cust.Name,
                     cust.Purchase);
             }
+            */
+
+            /*
+                // lesson 2
+            var inEurosQuery =
+                from c in customers
+                select new { Name = c.Last, Price = c.Price * 0.89, OldPrice = c.Price };
+
+            foreach(var cust in inEurosQuery)
+            {
+                Console.WriteLine("{0}, {1}, {2}", cust.Name, cust.Price, cust.OldPrice);
+            }
+            */
+
+            /*
+            IEnumerable<Customer> stateQuery =
+                from cust in customers
+                //where cust.State == "OR" && cust.Price > 1000
+                orderby cust.Price descending
+                select cust;
+
+            foreach (Customer c in stateQuery)
+            {
+                Console.WriteLine(c.Last + "," + c.First + " spent $"+ c.Price);
+            }
+            */
+
+
+            /*
+            // nested loop in grouping.
+            IEnumerable<IGrouping<string, Customer>> groupQuery =
+                from c in customers
+                group c by c.State;
+
+            foreach(IGrouping<string,Customer> stateGroup in groupQuery)
+            {
+                Console.WriteLine("{0}", stateGroup.Key);
+                foreach(Customer c in stateGroup)
+                {
+                    Console.WriteLine("     {0} {0}", c.First, c.Last);
+                }
+            }
+            */
+
+            /*
+            // lesson 5, INNER JOIN example.
+            var matchupQuery =
+                from c in customers
+                join d in distributors on c.State equals d.State
+                select new { custName = c.Last, distName = d.Name };
+
+            foreach(var cd in matchupQuery)
+            {
+                Console.WriteLine(cd.custName + " at " + cd.distName);
+            }
+            */
+
+            /*
+            // lesson 5, OUTTER JOIN example (groupjoin)
+            var matchupQuery =
+                from c in customers
+                join d in distributors on c.State equals d.State into matches
+                select new { custname = c.Last, distname = matches.Select(dist => dist.Name) };
+
+            foreach (var cd in matchupQuery)
+            {
+                Console.WriteLine("{0}",cd.custname );
+                foreach(var d in cd.distname) { 
+                    Console.WriteLine("     {0}", d );
+                }
+            }
+            */
+
+            /*
+            // lesson 5, CROSS JOIN example
+            IEnumerable<double> exchangeQuery =
+                from c in customers
+                from e in exchange
+                select c.Price * e;
+
+            foreach(double ex in exchangeQuery)
+            {
+                Console.WriteLine("{0:N2}", ex);
+            }
+            */
+
+            // LESSON 6 (Lambda expressions)
+
+
+
             Console.ReadKey();
         }
     }
